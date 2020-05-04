@@ -16,6 +16,7 @@ public class Crack : MonoBehaviour
     public string[] ignoreLayers = new string[] { "InvisibleWall" };
     public float crackDurabilityMax = 100f;
     public float breakCountMax = 2;
+    public float turnDamageRatio = 5f;
 
     private float crackDurability;
     private CrackStage crackStage;
@@ -92,7 +93,7 @@ public class Crack : MonoBehaviour
             return;
         }
         var turnAngle = Mathf.Acos(cosAngle);
-        this.crackDurability -= turnAngle * 5f;
+        this.crackDurability -= turnAngle * this.turnDamageRatio;
     }
 
     private void OnCollision(Collision2D collision)
