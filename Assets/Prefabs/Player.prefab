@@ -401,3 +401,7 @@ MonoBehaviour:
   - InvisibleWall
   crackDurabilityMax: 100
   breakCountMax: 2
+  turnDamageRatio: 5
+  pieces:
+  - {fileID: 4014187757300873304, guid: 31ffb1a78d766b745b58e94c24714e84, type: 3}
+  - {fileID: 5707075561073967247, guid: 61552c0fabebb1743b8fe461f819e620, type: 3}

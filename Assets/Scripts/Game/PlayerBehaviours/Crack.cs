@@ -18,6 +18,8 @@ public class Crack : MonoBehaviour
     public float breakCountMax = 2;
     public float turnDamageRatio = 5f;
 
+    public GameObject[] pieces;
+
     private float crackDurability;
     private CrackStage crackStage;
     private int breakCount;
@@ -53,6 +55,8 @@ public class Crack : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(this.crackDurability);
+
         if (this.crackDurability <= 0f && this.breakCount < this.breakCountMax)
         {
             this.TransitionCrackStage();
@@ -79,6 +83,11 @@ public class Crack : MonoBehaviour
 
     private void Break()
     {
+        if (this.breakCount < this.pieces.Length)
+        {
+            var piece = this.pieces[this.breakCount];
+            GameObject.Instantiate(piece, this.targetTransform.position + this.targetTransform.TransformDirection(piece.transform.position), this.targetTransform.rotation);
+        }
         this.breakCount++;
         this.targetAnimator.SetInteger("BreakCount", this.breakCount);
     }
