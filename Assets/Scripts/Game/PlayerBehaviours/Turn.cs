@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -9,6 +11,8 @@ public class Turn : MonoBehaviour
 
     private bool turnInput;
     private bool isTurned;
+    private Subject<Unit> turnSubject;
+
     private Transform targetTransform;
     private Move targetMove;
     private Jump targetJump;
@@ -22,6 +26,8 @@ public class Turn : MonoBehaviour
     {
         this.turnInput = false;
         this.isTurned = false;
+        this.turnSubject = new Subject<Unit>();
+
         this.targetTransform = targetTransform;
         this.targetMove = targetMove;
         this.targetJump = targetJump;
@@ -29,6 +35,11 @@ public class Turn : MonoBehaviour
         this.targetSpin = targetSpin;
         this.targetCircleCollider2D = targetCircleCollider2D;
         this.targetAnimator = targetAnimator;
+    }
+
+    public IObservable<Unit> OnTurningAsObservable()
+    {
+        return this.turnSubject;
     }
 
     private void Update()
@@ -69,6 +80,7 @@ public class Turn : MonoBehaviour
             }
 
             this.isTurned = true;
+            this.turnSubject.OnNext(default(Unit));
 
             this.targetMove.enabled = false;
             this.targetJump.enabled = false;

@@ -4,6 +4,7 @@ using Zenject;
 
 public class PlayerInstaller : MonoInstaller
 {
+    public Turn playerTurn;
     public Move playerMove;
     public Jump playerJump;
     public BoxCollider2D playerBoxCollider2D;
@@ -16,6 +17,7 @@ public class PlayerInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
+        base.Container.Bind<Turn>().FromInstance(this.playerTurn).AsSingle();
         base.Container.Bind<Move>().FromInstance(this.playerMove).AsSingle();
         base.Container.Bind<Jump>().FromInstance(this.playerJump).AsSingle();
         base.Container.Bind<BoxCollider2D>().FromInstance(this.playerBoxCollider2D).AsSingle();

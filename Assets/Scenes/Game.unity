@@ -457,7 +457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 965750920}
   - component: {fileID: 965750919}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,7 +578,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 51eff4b009bc8654d807f77dbeb77a4f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 74e0773b4f330f840b6ac3c276a74299, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -648,6 +648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ef7539d6a2ef74fbd12076e3bf71d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTurn: {fileID: 1934122281}
   playerMove: {fileID: 1934122284}
   playerJump: {fileID: 1934122283}
   playerBoxCollider2D: {fileID: 1467252821}
@@ -715,7 +716,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467252816}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1389121383}
@@ -768,7 +769,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.8}
+  m_Size: {x: 1, y: 1.9}
   m_EdgeRadius: 0
 --- !u!58 &1467252827
 CircleCollider2D:
@@ -783,9 +784,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.3}
+  m_Offset: {x: 0, y: -0.45}
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 0.51
 --- !u!1 &1512673746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,6 +1014,7 @@ GameObject:
   - component: {fileID: 1934122284}
   - component: {fileID: 1934122283}
   - component: {fileID: 1934122280}
+  - component: {fileID: 1934122286}
   m_Layer: 0
   m_Name: Behaviour
   m_TagString: Untagged
@@ -1100,6 +1102,22 @@ Transform:
   m_Father: {fileID: 1389121383}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1934122286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934122279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88ee24cec36f9f34cbab4e52ad1bc83c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignoreLayers:
+  - InvisibleWall
+  crackDurabilityMax: 100
+  breakCountMax: 2
 --- !u!1 &2118753594
 GameObject:
   m_ObjectHideFlags: 0
