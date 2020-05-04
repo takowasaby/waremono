@@ -53,8 +53,6 @@ public class Crack : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(this.crackDurability);
-
         if (this.crackDurability <= 0f && this.breakCount < this.breakCountMax)
         {
             this.TransitionCrackStage();

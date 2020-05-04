@@ -5,35 +5,29 @@ using UniRx.Triggers;
 using UnityEngine;
 using Zenject;
 
-public class SoftFloor : MonoBehaviour
+public class Goal : MonoBehaviour
 {
-    public float reductionRatio = 0.1f;
     public string playerLayer = "Player";
 
-    private Crack playerCrack;
+    private GameManager gameManager;
     private ObservableCollision2DTrigger targetCollisionTrigger;
 
     [Inject]
-    public void Construct(Crack playerCrack, ObservableCollision2DTrigger targetCollisionTrigger)
+    public void Construct(GameManager gameManager, ObservableCollision2DTrigger targetCollisionTrigger)
     {
-        this.playerCrack = playerCrack;
+        this.gameManager = gameManager;
         this.targetCollisionTrigger = targetCollisionTrigger;
     }
 
     private void Start()
     {
         this.targetCollisionTrigger
-            .OnTriggerEnter2DAsObservable()
+            .OnCollisionEnter2DAsObservable()
             .Where(this.IsPlayer)
             .Subscribe(_ => this.PlayerEnter());
-
-        this.targetCollisionTrigger
-            .OnTriggerExit2DAsObservable()
-            .Where(this.IsPlayer)
-            .Subscribe(_ => this.PlayerExit());
     }
 
-    private bool IsPlayer(Collider2D collision)
+    private bool IsPlayer(Collision2D collision)
     {
         var layerMask = LayerMask.GetMask(this.playerLayer);
         return ((1 << collision.gameObject.layer) & layerMask) != 0;
@@ -41,11 +35,6 @@ public class SoftFloor : MonoBehaviour
 
     private void PlayerEnter()
     {
-        this.playerCrack.turnDamageRatio *= this.reductionRatio;
-    }
-
-    private void PlayerExit()
-    {
-        this.playerCrack.turnDamageRatio /= this.reductionRatio;
+        this.gameManager.EndGame();
     }
 }
