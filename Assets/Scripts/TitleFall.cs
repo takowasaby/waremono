@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TitleFall : MonoBehaviour
 {
+    public AudioSource audioSource;
     private int flag = 0;
 
     // Start is called before the first frame update
@@ -17,15 +18,17 @@ public class TitleFall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-	if (Input.GetKeyDown("d") && flag == 0) {
+	if (Input.anyKey) {
 	     Invoke("fall",2);
 	     flag = 1;
 	}
     }
 
-    void fall(){
-         var rb = GetComponent<Rigidbody2D>();
+    void fall()
+    {
+        audioSource.Play();
+        var rb = GetComponent<Rigidbody2D>();
          rb.bodyType = RigidbodyType2D.Dynamic;
-         rb.AddForce(Vector2.up * 150f);
+         rb.AddForce(Vector2.up * 50f);
     }
 }

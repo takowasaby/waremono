@@ -4,7 +4,7 @@ using System.Collections;
 public class Fadeout : MonoBehaviour {
     public float fadeTime = 1f;
     public GameObject ob;
- 
+
     private float currentRemainTime;
     private SpriteRenderer spRenderer;
  

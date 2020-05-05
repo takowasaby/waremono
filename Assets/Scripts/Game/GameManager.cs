@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene("Scenes/GameTest1", LoadSceneMode.Single);
                 break;
             case "GameTest1":
-                SceneManager.LoadScene("Scenes/Game", LoadSceneMode.Single);
+                SceneManager.LoadScene("Scenes/TitleScene", LoadSceneMode.Single);
                 break;
         }
     }

@@ -24,7 +24,7 @@ public class Blink : MonoBehaviour {
     }
 
     void Update () {
-	if (Input.GetKeyDown("d")) {
+	if (Input.anyKey) {
            speed = 3.0f;
 	   count += 1;
         }

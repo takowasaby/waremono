@@ -1,13 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class Pan : MonoBehaviour
 {
-    public CircleCollider2D targetCollider;
+    private SoundHolder soundHolder;
 
-    private void OnCollisionEnter(Collision _)
+    [Inject]
+    public void Construct(SoundHolder soundHolder)
     {
-        this.targetCollider.enabled = false;
+        this.soundHolder = soundHolder;
+    }
+
+    private void OnCollisionEnter2D(Collision2D _)
+    {
+        this.soundHolder.pan.Play();
     }
 }

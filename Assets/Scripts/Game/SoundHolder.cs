@@ -9,4 +9,5 @@ public class SoundHolder : MonoBehaviour
     public AudioSource jump;
     public AudioSource breaking;
     public AudioSource turn;
+    public AudioSource pan;
 }
