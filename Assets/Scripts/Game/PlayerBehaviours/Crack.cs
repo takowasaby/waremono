@@ -78,6 +78,7 @@ public class Crack : MonoBehaviour
                 this.targetAnimator.SetInteger("CrackStage", 0);
                 break;
         }
+        this.targetTurn.StandUpTarget();
         this.targetAnimator.SetTrigger("Crack");
     }
 

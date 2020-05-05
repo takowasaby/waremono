@@ -59,39 +59,49 @@ public class Turn : MonoBehaviour
 
         if (this.isTurned)
         {
-            this.isTurned = false;
-
-            this.targetTransform.rotation = Quaternion.Euler(Vector3.zero);
-
-            this.targetMove.enabled = true;
-            this.targetJump.enabled = true;
-            this.targetBoxCollider2D.enabled = true;
-
-            this.targetSpin.enabled = false;
-            this.targetCircleCollider2D.enabled = false;
-
-            this.targetAnimator.SetTrigger("StandUp");
+            this.StandUpTarget();
         }
         else
         {
-            if (this.targetMove.IsMoving())
-            {
-                return;
-            }
-
-            this.isTurned = true;
-            this.turnSubject.OnNext(default(Unit));
-
-            this.targetMove.enabled = false;
-            this.targetJump.enabled = false;
-            this.targetBoxCollider2D.enabled = false;
-
-            this.targetSpin.enabled = true;
-            this.targetCircleCollider2D.enabled = true;
-
-            this.targetAnimator.SetTrigger("Turn");
+            this.TurnTarget();
         }
 
         this.turnInput = turnInput;
+    }
+
+    public void StandUpTarget()
+    {
+        this.isTurned = false;
+
+        this.targetTransform.rotation = Quaternion.Euler(Vector3.zero);
+
+        this.targetMove.enabled = true;
+        this.targetJump.enabled = true;
+        this.targetBoxCollider2D.enabled = true;
+
+        this.targetSpin.enabled = false;
+        this.targetCircleCollider2D.enabled = false;
+
+        this.targetAnimator.SetTrigger("StandUp");
+    }
+
+    public void TurnTarget()
+    {
+        if (this.targetMove.IsMoving())
+        {
+            return;
+        }
+
+        this.isTurned = true;
+        this.turnSubject.OnNext(default(Unit));
+
+        this.targetMove.enabled = false;
+        this.targetJump.enabled = false;
+        this.targetBoxCollider2D.enabled = false;
+
+        this.targetSpin.enabled = true;
+        this.targetCircleCollider2D.enabled = true;
+
+        this.targetAnimator.SetTrigger("Turn");
     }
 }
