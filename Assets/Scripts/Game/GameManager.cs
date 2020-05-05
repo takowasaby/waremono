@@ -7,6 +7,8 @@ using Zenject;
 
 public class GameManager : MonoBehaviour
 {
+    private bool reseting;
+
     private SoundHolder soundHolder;
     private Player player;
     private Crack playerCrack;
@@ -15,6 +17,8 @@ public class GameManager : MonoBehaviour
     [Inject]
     public void Construct(SoundHolder soundHolder, Player player, Crack playerCrack, Image fadeImage)
     {
+        this.reseting = false;
+
         this.soundHolder = soundHolder;
         this.player = player;
         this.playerCrack = playerCrack;
@@ -24,6 +28,15 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         this.StartGame();
+    }
+
+    private void Update()
+    {
+        if (Input.GetAxis("Fire2") != 0f && this.reseting == false)
+        {
+            this.reseting = true;
+            base.StartCoroutine("ResetGameRoutine");
+        }
     }
 
     public void StartGame()
@@ -60,6 +73,19 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         // TODO Result画面へ遷移
+        SceneManager.LoadScene("Scenes/Game", LoadSceneMode.Single);
+    }
+
+    private IEnumerator ResetGameRoutine()
+    {
+        this.soundHolder.bgm.Stop();
+        this.player.StopBehaviors();
+        while (this.fadeImage.color.a < 1f)
+        {
+            var col = this.fadeImage.color;
+            this.fadeImage.color = new Color(col.r, col.g, col.b, col.a + 0.02f);
+            yield return null;
+        }
         SceneManager.LoadScene("Scenes/Game", LoadSceneMode.Single);
     }
 }
