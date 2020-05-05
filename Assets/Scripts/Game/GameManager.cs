@@ -7,13 +7,15 @@ using Zenject;
 
 public class GameManager : MonoBehaviour
 {
+    private SoundHolder soundHolder;
     private Player player;
     private Crack playerCrack;
     private Image fadeImage;
 
     [Inject]
-    public void Construct(Player player, Crack playerCrack, Image fadeImage)
+    public void Construct(SoundHolder soundHolder, Player player, Crack playerCrack, Image fadeImage)
     {
+        this.soundHolder = soundHolder;
         this.player = player;
         this.playerCrack = playerCrack;
         this.fadeImage = fadeImage;
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartGameRoutine()
     {
+        this.soundHolder.bgm.Play();
         this.player.SetPosition(Vector3.zero);
         while (this.fadeImage.color.a > 0f)
         {
@@ -48,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator EndGameRoutine()
     {
+        this.soundHolder.bgm.Stop();
         this.player.StopBehaviors();
         while (this.fadeImage.color.a < 1f)
         {

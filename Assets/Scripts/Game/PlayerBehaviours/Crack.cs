@@ -24,18 +24,20 @@ public class Crack : MonoBehaviour
     private CrackStage crackStage;
     private int breakCount;
 
+    private SoundHolder soundHolder;
     private Turn targetTurn;
     private Transform targetTransform;
     private ObservableCollision2DTrigger targetCollisionTrigger;
     private Animator targetAnimator;
 
     [Inject]
-    public void Construct(Turn targetTurn, Transform targetTransform, ObservableCollision2DTrigger targetCollisionTrigger, Animator targetAnimator)
+    public void Construct(SoundHolder soundHolder, Turn targetTurn, Transform targetTransform, ObservableCollision2DTrigger targetCollisionTrigger, Animator targetAnimator)
     {
         this.crackDurability = this.crackDurabilityMax;
         this.crackStage = CrackStage.NoCrack;
         this.breakCount = 0;
 
+        this.soundHolder = soundHolder;
         this.targetTurn = targetTurn;
         this.targetTransform = targetTransform;
         this.targetCollisionTrigger = targetCollisionTrigger;
@@ -91,6 +93,7 @@ public class Crack : MonoBehaviour
         }
         this.breakCount++;
         this.targetAnimator.SetInteger("BreakCount", this.breakCount);
+        this.soundHolder.breaking.Play();
     }
 
     private void OnTurn()
@@ -114,5 +117,6 @@ public class Crack : MonoBehaviour
         }
 
         this.crackDurability -= collision.relativeVelocity.magnitude;
+        this.soundHolder.crack.Play();
     }
 }

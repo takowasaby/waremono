@@ -7,5 +7,6 @@ public class SoundHolder : MonoBehaviour
     public AudioSource bgm;
     public AudioSource crack;
     public AudioSource jump;
-    public AudioSource landing;
+    public AudioSource breaking;
+    public AudioSource turn;
 }

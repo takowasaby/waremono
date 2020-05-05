@@ -13,6 +13,7 @@ public class Turn : MonoBehaviour
     private bool isTurned;
     private Subject<Unit> turnSubject;
 
+    private SoundHolder soundHolder;
     private Transform targetTransform;
     private Move targetMove;
     private Jump targetJump;
@@ -22,12 +23,13 @@ public class Turn : MonoBehaviour
     private Animator targetAnimator;
 
     [Inject]
-    public void Construct(Transform targetTransform, Move targetMove, Jump targetJump, BoxCollider2D targetBoxCollider2D, Spin targetSpin, CircleCollider2D targetCircleCollider2D, Animator targetAnimator)
+    public void Construct(SoundHolder soundHolder, Transform targetTransform, Move targetMove, Jump targetJump, BoxCollider2D targetBoxCollider2D, Spin targetSpin, CircleCollider2D targetCircleCollider2D, Animator targetAnimator)
     {
         this.turnInput = false;
         this.isTurned = false;
         this.turnSubject = new Subject<Unit>();
 
+        this.soundHolder = soundHolder;
         this.targetTransform = targetTransform;
         this.targetMove = targetMove;
         this.targetJump = targetJump;
@@ -59,6 +61,7 @@ public class Turn : MonoBehaviour
 
         if (this.isTurned)
         {
+            this.targetTransform.rotation = Quaternion.Euler(Vector3.zero);
             this.StandUpTarget();
         }
         else
@@ -72,8 +75,6 @@ public class Turn : MonoBehaviour
     public void StandUpTarget()
     {
         this.isTurned = false;
-
-        this.targetTransform.rotation = Quaternion.Euler(Vector3.zero);
 
         this.targetMove.enabled = true;
         this.targetJump.enabled = true;
@@ -103,5 +104,6 @@ public class Turn : MonoBehaviour
         this.targetCircleCollider2D.enabled = true;
 
         this.targetAnimator.SetTrigger("Turn");
+        this.soundHolder.turn.Play();
     }
 }
