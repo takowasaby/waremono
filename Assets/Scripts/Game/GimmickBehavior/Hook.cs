@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UniRx.Triggers;
@@ -9,7 +10,7 @@ public class Hook : MonoBehaviour
 {
     public string playerLayer = "Player";
 
-    private bool isReleased;
+    private IDisposable searchDisposable;
 
     private Transform connectionTransform;
     private Rigidbody2D panRigidBody;
@@ -18,7 +19,7 @@ public class Hook : MonoBehaviour
     [Inject]
     public void Construct(Transform connectionTransform, Rigidbody2D panRigidBody, ObservableCollision2DTrigger searchAreaTrigger)
     {
-        this.isReleased = false;
+        this.searchDisposable = null;
 
         this.connectionTransform = connectionTransform;
         this.panRigidBody = panRigidBody;
@@ -29,7 +30,7 @@ public class Hook : MonoBehaviour
     {
         this.panRigidBody.isKinematic = true;
 
-        this.searchAreaTrigger
+        this.searchDisposable = this.searchAreaTrigger
             .OnTriggerEnter2DAsObservable()
             .Where(this.IsPlayer)
             .Subscribe(_ => this.PlayerEnter());
@@ -45,5 +46,6 @@ public class Hook : MonoBehaviour
     {
         this.panRigidBody.isKinematic = false;
         this.panRigidBody.AddForce(new Vector3(0f, -100f, 0f));
+        this.searchDisposable.Dispose();
     }
 }
