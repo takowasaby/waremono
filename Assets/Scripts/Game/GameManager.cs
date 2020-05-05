@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(SceneManager.GetActiveScene().name);
         this.StartGame();
     }
 
@@ -72,8 +73,18 @@ public class GameManager : MonoBehaviour
             this.fadeImage.color = new Color(col.r, col.g, col.b, col.a + 0.02f);
             yield return null;
         }
-        // TODO Result画面へ遷移
-        SceneManager.LoadScene("Scenes/Game", LoadSceneMode.Single);
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Game":
+                SceneManager.LoadScene("Scenes/GameTest0", LoadSceneMode.Single);
+                break;
+            case "GameTest0":
+                SceneManager.LoadScene("Scenes/GameTest1", LoadSceneMode.Single);
+                break;
+            case "GameTest1":
+                SceneManager.LoadScene("Scenes/Game", LoadSceneMode.Single);
+                break;
+        }
     }
 
     private IEnumerator ResetGameRoutine()
@@ -86,6 +97,17 @@ public class GameManager : MonoBehaviour
             this.fadeImage.color = new Color(col.r, col.g, col.b, col.a + 0.02f);
             yield return null;
         }
-        SceneManager.LoadScene("Scenes/Game", LoadSceneMode.Single);
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Game":
+                SceneManager.LoadScene("Scenes/Game", LoadSceneMode.Single);
+                break;
+            case "GameTest0":
+                SceneManager.LoadScene("Scenes/GameTest0", LoadSceneMode.Single);
+                break;
+            case "GameTest1":
+                SceneManager.LoadScene("Scenes/GameTest1", LoadSceneMode.Single);
+                break;
+        }
     }
 }
