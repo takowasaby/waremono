@@ -8,6 +8,7 @@ public class GameInstaller : MonoInstaller
     public Crack playerCrack;
     public Image fadeImage;
     public GameManager gameManager;
+    public SoundHolder soundHolder;
 
     public override void InstallBindings()
     {
@@ -15,5 +16,6 @@ public class GameInstaller : MonoInstaller
         base.Container.Bind<Crack>().FromInstance(this.playerCrack).AsSingle();
         base.Container.Bind<Image>().FromInstance(this.fadeImage).AsSingle();
         base.Container.Bind<GameManager>().FromInstance(this.gameManager).AsSingle();
+        base.Container.Bind<SoundHolder>().FromInstance(this.soundHolder).AsSingle();
     }
 }
