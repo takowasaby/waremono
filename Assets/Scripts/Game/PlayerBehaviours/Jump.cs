@@ -10,20 +10,27 @@ public class Jump : MonoBehaviour
     public string[] landingLayers = new string[] { "Ground" };
     public Vector2 jumpForce = new Vector2(0f, 100f);
 
+    private bool isJump;
+
     private SoundHolder soundHolder;
     private Transform targetTransform;
     private Rigidbody2D targetRigidBody;
     private ObservableCollision2DTrigger targetCollisionTrigger;
 
-    private bool isJump;
-
     [Inject]
     public void Construct(SoundHolder soundHolder, Transform targetTransform, Rigidbody2D targetRigidBody, ObservableCollision2DTrigger targetCollisionTrigger)
     {
+        this.isJump = true;
+
         this.soundHolder = soundHolder;
         this.targetTransform = targetTransform;
         this.targetRigidBody = targetRigidBody;
         this.targetCollisionTrigger = targetCollisionTrigger;
+    }
+
+    public bool IsJumping()
+    {
+        return this.isJump;
     }
 
     private void Start()

@@ -59,6 +59,11 @@ public class Turn : MonoBehaviour
             return;
         }
 
+        if (this.targetJump.IsJumping())
+        {
+            return;
+        }
+
         if (this.isTurned)
         {
             this.targetTransform.rotation = Quaternion.Euler(Vector3.zero);
